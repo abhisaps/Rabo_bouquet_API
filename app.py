@@ -133,6 +133,8 @@ def new_user_confirmation():
 
     if msg == "User Already Exist...":
         return render_template('new_user_registration.html', msg=msg)
+    elif msg == "Invalid Credentials...":
+        return render_template('new_user_registration.html', msg='Id and Password can not be empty')
     else:
         return render_template('new_user_registration.html', msg1=msg)
 

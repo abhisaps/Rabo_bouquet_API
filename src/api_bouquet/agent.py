@@ -26,11 +26,14 @@ def user(user_id, user_password):
 
 
 def new_user(new_user_id, new_user_password):
-    if new_user_id in user_dict.keys():
-        return "User Already Exist..."
+    if len(new_user_id) != 0 and len(new_user_password) != 0:
+        if new_user_id in user_dict.keys():
+            return "User Already Exist..."
+        else:
+            user_dict[new_user_id] = new_user_password
+            return "Registration Successfully..."
     else:
-        user_dict[new_user_id] = new_user_password
-        return "Registration Successfully..."
+        return "Invalid Credentials..."
 
 
 def menu_flower_list(menu1):
