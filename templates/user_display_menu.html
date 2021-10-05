@@ -57,7 +57,7 @@
 
                     <label style="color: blue; margin-top: 35px">Enter your Bouquet </label>
                     <input style="margin-left: 40px ; border: 1px solid orange" type="text" name="user_bouquet" maxlength="{{bouquet_size}}" value="{{user_bouquet}}">
-                    <input type="hidden" name="user_bouquet" value="{{user_bouquet}}">
+                    <input type="hidden" name="bouquet_size" value="{{bouquet_size}}">
                     <br>
 
                     {% if not_in_menu %}
@@ -65,11 +65,11 @@
                     {% endif %}
 
                     {% if overflow_menu %}
-                        <center style="color: red; font-size:18px; margin-top:20px"><i>{{overflow_menu}}</i></center>
+                        <center style="color: red; font-size:18px; margin-top:10px"><i>{{overflow_menu}} are in limited stock</i></center>
                     {% endif %}
 
                     {% if stock_bouquet %}
-                        <center style="color: #2cbf1f; font-size:18px; margin-top:20px"><i>Available in stock : {{stock_bouquet}}</i></center>
+                        <center style="color: #2cbf1f; font-size:18px; margin-top:10px"><i>Available in stock : {{stock_bouquet}}</i></center>
                     {% endif %}
 
                     <br>
