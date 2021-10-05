@@ -66,7 +66,7 @@ def deducting_stock(stock_bouquet):
 
     d = dict(zip(key1, value1))
     for i in key1:
-        menu1[i][0] = menu1[i][0] - d[i]
+        menu1[i][0] = int(menu1[i][0]) - int(d[i])
 
 
 def all_user_list():
