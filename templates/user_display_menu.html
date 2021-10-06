@@ -55,27 +55,40 @@
 
             <form action="/user_order_confirmation" method="post" style="font-size: 18px">
 
-                    <label style="color: blue; margin-top: 35px">Enter your Bouquet </label>
-                    <input style="margin-left: 40px ; border: 1px solid orange" type="text" name="user_bouquet" maxlength="{{bouquet_size}}" value="{{user_bouquet}}">
-                    <input type="hidden" name="bouquet_size" value="{{bouquet_size}}">
-                    <br>
+                <label style="color: blue; margin-top: 35px">Enter your Bouquet </label>
+                <input style="margin-left: 40px ; border: 1px solid orange" type="text" name="user_bouquet" maxlength="{{bouquet_size}}" value="{{user_bouquet}}">
+                <input type="hidden" name="bouquet_size" value="{{bouquet_size}}">
+                <br>
 
-                    {% if not_in_menu %}
-                        <center style="color: red; font-size:18px; margin-top:20px"><i>Not in Menu : {{not_in_menu}}</i></center>
-                    {% endif %}
+                {% if not_in_menu %}
+                    <center style="color: red; font-size:18px; margin-top:20px"><i>Not in Menu : {{not_in_menu}}</i></center>
+                {% endif %}
 
-                    {% if overflow_menu %}
-                        <center style="color: red; font-size:18px; margin-top:10px"><i>{{overflow_menu}} are in limited stock</i></center>
-                    {% endif %}
+                {% if overflow_menu %}
+                    <center style="color: red; font-size:18px; margin-top:10px"><i>{{overflow_menu}} are in limited stock</i></center>
+                {% endif %}
 
-                    {% if stock_bouquet %}
-                        <center style="color: #2cbf1f; font-size:18px; margin-top:10px"><i>Available in stock : {{stock_bouquet}}</i></center>
-                    {% endif %}
+                {% if stock_bouquet %}
+                    <center style="color: #2cbf1f; font-size:18px; margin-top:10px"><i>Available in stock : {{stock_bouquet}}</i></center>
+                {% endif %}
 
-                    <br>
+                <br>
+                {% if len_stock_bouquet !=  bouquet_size %}
                     <a href="/user_display_menu"><button class="btn btn-primary" type="button" style="width: 120px; height: 40px; margin: 15px;  background-color: orange; border-color: orange">Back</button></a>
-                    <input class="btn btn-primary" action="/user_order_confirmation" style="height: 40px; width: 120px" type="Submit" value="Submit">
+                    <input class="btn btn-primary" action="/user_order_confirmation" style="height: 40px; width: 120px" type="Submit" value="check">
+                    <input class="btn btn-primary" style="margin: 15px; height: 40px; width: 120px" type="Submit" disabled="disabled" value="Order">
+                {% endif %}
+            </form>
+
+            {% if len_stock_bouquet ==  bouquet_size %}
+                <form action="/receipt" method="post">
+                    <input type="hidden" name="stock_bouquet" value="{{stock_bouquet}}">
+                    <a href="/user_display_menu"><button class="btn btn-primary" type="button" style="width: 120px; height: 40px; margin: 15px;  background-color: orange; border-color: orange">Back</button></a>
+                    <button class="btn btn-primary" style="height: 40px; width: 120px" type="Submit" disabled="disabled">check</button>
+                    <input class="btn btn-primary" action="/receipt" style="margin: 15px; height: 40px; width: 120px" type="Submit" value="Order">
                 </form>
+            {% endif %}
+
         {% endif %}
 
         <center style="background-color: pink; font-size:20px; margin-top:20px"><i>{{msg2}}</i></center>

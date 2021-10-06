@@ -172,17 +172,27 @@ def user_order_confirmation():
     stock_bouquet = list(o1)[1]
     overflow_menu = list(o1)[2]
 
-    if user_bouquet.isalpha() and len(user_bouquet) != 0:
-        if len(user_bouquet) < int(bouquet_size):
-            return render_template('user_display_menu.html', user_bouquet=user_bouquet, not_in_menu=not_in_menu, stock_bouquet=stock_bouquet, len_stock_bouquet=len(stock_bouquet), overflow_menu=overflow_menu, output=output, bouquet_size=bouquet_size)
-        else:
-            if not_in_menu == [] and overflow_menu == []:
-                deducting_stock(stock_bouquet)
-                return render_template('receipt.html', msg3='Your Order has been Placed Successfully...', stock_bouquet=stock_bouquet)
+    if len(user_bouquet) != 0:
+        if user_bouquet.isalpha():
+            if len(user_bouquet) < int(bouquet_size):
+                return render_template('user_display_menu.html', user_bouquet=user_bouquet, not_in_menu=not_in_menu, stock_bouquet=stock_bouquet, len_stock_bouquet=len(stock_bouquet), overflow_menu=overflow_menu, output=output, bouquet_size=bouquet_size)
             else:
-                return render_template('user_display_menu.html', user_bouquet=user_bouquet, not_in_menu=not_in_menu, stock_bouquet=stock_bouquet, len_stock_bouquet=len(stock_bouquet), overflow_menu=overflow_menu, output=output, bouquet_size=bouquet_size, user_bouquet_size=len(user_bouquet))
+                if not_in_menu == [] and overflow_menu == []:
+                    return render_template('user_display_menu.html', user_bouquet=user_bouquet, not_in_menu=not_in_menu, stock_bouquet=stock_bouquet, len_stock_bouquet=len(stock_bouquet), overflow_menu=overflow_menu, output=output, bouquet_size=int(bouquet_size), user_bouquet_size=len(user_bouquet))
+                else:
+                    return render_template('user_display_menu.html', user_bouquet=user_bouquet, not_in_menu=not_in_menu, stock_bouquet=stock_bouquet, len_stock_bouquet=len(stock_bouquet), overflow_menu=overflow_menu, output=output, bouquet_size=bouquet_size, user_bouquet_size=len(user_bouquet))
+        else:
+            return render_template('user_display_menu.html', output=output, msg2='Invalid Input...', user_bouquet=user_bouquet, bouquet_size=bouquet_size)
     else:
         return render_template('user_display_menu.html', output=output, msg2='User Bouquet can\'t be empty', user_bouquet=user_bouquet, bouquet_size=bouquet_size)
+
+
+@app.route('/receipt', methods=['POST', 'GET'])
+def receipt():
+    output = request.form.to_dict()
+    stock_bouquet = output['stock_bouquet']
+    deducting_stock(stock_bouquet)
+    return render_template('receipt.html', msg3='Your Order has been Placed Successfully...', stock_bouquet=stock_bouquet)
 
 
 if __name__ == "__main__":
